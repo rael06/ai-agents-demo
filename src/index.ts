@@ -53,7 +53,9 @@ async function callModel(prompt: string) {
 
       const actionResponse = aiResponse.message.content.trim();
       const observationPrompt = `${actionResponse}\n\nObservation:\n${JSON.stringify(
-        toolResponse
+        toolResponse,
+        null,
+        2
       )}\n`;
 
       console.log(observationPrompt);
