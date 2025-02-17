@@ -1,15 +1,14 @@
+import "reflect-metadata";
 import "dotenv/config";
 
-import { BaseAiModel } from "./AiModels/BaseAiModel";
-import { OllamaModel } from "./AiModels/OllamaModel";
-import { OpenAiModel } from "./AiModels/OpenAiModel";
-import { systemPrompt } from "./prompts";
 import { z } from "zod";
+import { container } from "tsyringe";
+import { AiModelFactory } from "./AiModels/AiModelFactory";
+import { systemPrompt } from "./prompts";
 
-const aiModel: BaseAiModel = {
-  openai: new OpenAiModel(),
-  ollama: new OllamaModel(),
-}[process.env.MODEL_PROVIDER!]!;
+const aiModel = container
+  .resolve(AiModelFactory)
+  .createAiModel(process.env.MODEL_PROVIDER!);
 
 // Tool function to fetch movie data
 async function fetchMovies(query: string) {
