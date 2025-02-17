@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+export const AiModelToken = "AiModelToken";
+
 export abstract class BaseAiModel {
   abstract chat(args: {
     messages: ChatMessage[];
